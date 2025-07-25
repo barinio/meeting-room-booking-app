@@ -25,5 +25,5 @@ export default async function handler(req: NextApiRequest,
         expiresIn: '7d',
     });
 
-    res.status(200).json({ token, user: { name: user.name, email: user.email } });
+    res.status(200).json({ token, user: { id: user.id, name: user.name, email: user.email } });
 }

@@ -16,6 +16,8 @@ interface AuthContextType {
     setLoading: (value: boolean) => void;
     userName: string;
     setUserName: (value: string) => void;
+    userId: string;
+    setUserId: (value: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -24,6 +26,8 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
     const [isAuth, setIsAuth] = useState(false);
     const [loading, setLoading] = useState(true);
     const [userName, setUserName] = useState("");
+    const [userId, setUserId] = useState("");
+
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -34,7 +38,7 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{isAuth, setIsAuth, loading, setLoading, userName, setUserName}}>
+        <AuthContext.Provider value={{isAuth, setIsAuth, loading, setLoading, userName, setUserName, userId, setUserId}}>
             <Header/>
             {children}
         </AuthContext.Provider>
