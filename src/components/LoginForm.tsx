@@ -4,7 +4,7 @@ import {useRouter} from 'next/navigation';
 import {useAuth} from "../../context/AuthContext";
 
 export default function LoginForm() {
-    const {setIsAuth, setUserName} = useAuth();
+    const {setIsAuth, setUserName, setUserId} = useAuth();
     const [form, setForm] = useState({email: '', password: ''});
 
     const router = useRouter();
@@ -19,12 +19,15 @@ export default function LoginForm() {
 
 
         const data = await res.json();
-
+        console.log(data);
         if (data.token) {
             setIsAuth(true)
             localStorage.setItem('token', data.token);
             localStorage.setItem('name', data.user.name);
+            localStorage.setItem('userId', data.user.id);
             setUserName(data.user.name);
+            setUserId(data.user.id);
+
             router.push('/dashboard');
         }
     };

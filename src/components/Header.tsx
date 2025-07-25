@@ -7,13 +7,15 @@ import {useAuth} from "../../context/AuthContext";
 
 
 export default function Header() {
-    const {isAuth, setIsAuth, loading, setUserName, userName} = useAuth();
+    const {isAuth, setIsAuth, loading, setUserName, userName, setUserId} = useAuth();
     const router = useRouter();
 
     useEffect(() => {
         const name = localStorage.getItem('name');
+        const userId = localStorage.getItem('userId');
         if (name) setUserName(name);
-    }, [isAuth, setUserName]);
+        if (userId) setUserId(userId);
+    }, [isAuth, setUserName, setUserId]);
 
     const handleLogout = async () => {
         try {
@@ -24,6 +26,8 @@ export default function Header() {
             setIsAuth(false);
             localStorage.removeItem('token');
             localStorage.removeItem('name');
+            localStorage.removeItem('userId');
+
             router.push('/');
         } catch (error) {
             console.error('Logout error:', error);
