@@ -1,6 +1,6 @@
 'use client';
 
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import {useRouter} from 'next/navigation';
 import Link from 'next/link';
 import {useAuth} from "../../context/AuthContext";
@@ -12,10 +12,8 @@ export default function Header() {
 
     useEffect(() => {
         const name = localStorage.getItem('name');
-
         if (name) setUserName(name);
-        console.log("isAuth: ", isAuth);
-    }, [isAuth]);
+    }, [isAuth, setUserName]);
 
     const handleLogout = async () => {
         try {
@@ -25,6 +23,7 @@ export default function Header() {
 
             setIsAuth(false);
             localStorage.removeItem('token');
+            localStorage.removeItem('name');
             router.push('/');
         } catch (error) {
             console.error('Logout error:', error);

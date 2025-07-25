@@ -21,9 +21,9 @@ export default function LoginForm() {
         const data = await res.json();
 
         if (data.token) {
-            console.log(data);
             setIsAuth(true)
             localStorage.setItem('token', data.token);
+            localStorage.setItem('name', data.user.name);
             setUserName(data.user.name);
             router.push('/dashboard');
         }
